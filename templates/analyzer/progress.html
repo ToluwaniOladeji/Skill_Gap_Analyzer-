@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Progress | Skill Gap Analyzer{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1">Progress tracker</h1>
+    <p class="text-muted mb-0">Review readiness changes by role over time.</p>
+  </div>
+  {% if roles %}
+    <form method="get" class="role-filter">
+      <label class="form-label" for="role">Role</label>
+      <select class="form-select" id="role" name="role" onchange="this.form.submit()">
+        {% for role in roles %}
+          <option value="{{ role.id }}" {% if selected_role.id == role.id %}selected{% endif %}>{{ role.name }}</option>
+        {% endfor %}
+      </select>
+    </form>
+  {% endif %}
+</div>
+
+{% if selected_role %}
+  {% if assessments|length >= 2 %}
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h2 class="h5">Readiness over time: {{ selected_role.name }}</h2>
+        <canvas id="progressChart" height="120"></canvas>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h2 class="h5">Skill comparison</h2>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead><tr><th>Skill</th><th class="text-center">First</th><th class="text-center">Most recent</th><th class="text-center">Change</th></tr></thead>
+            <tbody>
+              {% for item in comparison %}
+                <tr>
+                  <td>{{ item.skill }}</td>
+                  <td class="text-center">{{ item.first }}</td>
+                  <td class="text-center">{{ item.latest }}</td>
+                  <td class="text-center {% if item.change > 0 %}text-success{% elif item.change < 0 %}text-danger{% endif %}">{{ item.change }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-info">A progress chart appears after two or more assessments for {{ selected_role.name }}.</div>
+  {% endif %}
+{% else %}
+  <div class="empty-state">Complete an assessment to unlock progress tracking.</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+{% if selected_role and assessments|length >= 2 %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+  const labels = {{ chart_labels|safe }};
+  const scores = {{ chart_scores|safe }};
+  new Chart(document.getElementById("progressChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        label: "Readiness %",
+        data: scores,
+        borderColor: "#0d6efd",
+        backgroundColor: "rgba(13, 110, 253, 0.12)",
+        tension: 0.25,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: { y: { min: 0, max: 100 } }
+    }
+  });
+</script>
+{% endif %}
+{% endblock %}

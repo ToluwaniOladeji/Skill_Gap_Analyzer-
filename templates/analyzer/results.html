@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Results | Skill Gap Analyzer{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ assessment.role.name }} results</h1>
+    <p class="text-muted mb-0">{{ assessment.created_at|date:"M j, Y, H:i" }}</p>
+  </div>
+  <a class="btn btn-primary align-self-start" href="{% url 'download_report' assessment.id %}">Download PDF</a>
+</div>
+
+<section class="score-band mb-4">
+  <div>
+    <p class="text-uppercase small mb-1">Readiness score</p>
+    <div class="hero-score">{{ assessment.readiness_percentage|floatformat:0 }}%</div>
+  </div>
+  {% if assessment.readiness_percentage == 100 %}
+    <div class="role-ready">Role-ready: you meet or exceed every required skill level for this role.</div>
+  {% else %}
+    <div class="score-note">Focus first on the largest positive gaps below.</div>
+  {% endif %}
+</section>
+
+<section class="mb-4">
+  <h2 class="h5">Gap breakdown</h2>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Skill</th>
+          <th class="text-center">Your rating</th>
+          <th class="text-center">Required</th>
+          <th class="text-center">Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td>{{ rating.skill.name }}</td>
+            <td class="text-center">{{ rating.rating }}</td>
+            <td class="text-center">{{ rating.required_level }}</td>
+            <td class="text-center">
+              <span class="badge {% if rating.gap_score >= 3 %}text-bg-danger{% elif rating.gap_score == 2 %}text-bg-warning{% elif rating.gap_score == 1 %}text-bg-info{% else %}text-bg-success{% endif %}">
+                {{ rating.gap_score }}
+              </span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2 class="h5">Personalized learning path</h2>
+  {% if assessment.readiness_percentage == 100 %}
+    <div class="alert alert-success">No learning path is required for this role because your readiness score is 100%.</div>
+  {% elif learning_path %}
+    {% for group in learning_path %}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h3 class="h6 mb-2">{{ group.gap.skill_name }} <span class="badge text-bg-secondary">Gap {{ group.gap.gap_score }}</span></h3>
+          <div class="row g-3">
+            {% for resource in group.resources %}
+              <div class="col-md-4">
+                <div class="resource-box">
+                  <p class="small text-muted mb-1">{{ resource.difficulty }}</p>
+                  <h4 class="h6">{{ resource.title }}</h4>
+                  <p class="small">{{ resource.description }}</p>
+                  <a href="{{ resource.url }}" target="_blank" rel="noopener">Open resource</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-warning">No resources are linked to the current gap skills yet.</div>
+  {% endif %}
+</section>
+{% endblock %}

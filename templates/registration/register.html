@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Register | Skill Gap Analyzer{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="card auth-card shadow-sm">
+    <div class="card-body p-4">
+      <span class="auth-eyebrow">New account</span>
+      <h1 class="h4 mb-1">Create your account</h1>
+      <p class="text-muted mb-4">Use your name, email, and password to begin your first assessment.</p>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+            {% for error in field.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+          </div>
+        {% endfor %}
+        <button class="btn btn-primary w-100" type="submit">Register</button>
+      </form>
+      <p class="mt-3 mb-0 small text-center">Already registered? <a href="{% url 'login' %}">Log in</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

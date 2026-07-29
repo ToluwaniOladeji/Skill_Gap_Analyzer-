@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; color: #1f2937; font-size: 12px; }
+    h1 { color: #0d6efd; margin-bottom: 4px; }
+    h2 { margin-top: 24px; color: #111827; }
+    table { border-collapse: collapse; width: 100%; margin-top: 8px; }
+    th, td { border: 1px solid #d1d5db; padding: 7px; text-align: left; }
+    th { background: #eef4ff; }
+    .score { font-size: 32px; color: #0d6efd; font-weight: bold; }
+    .muted { color: #6b7280; }
+  </style>
+</head>
+<body>
+  <h1>Skill Gap Assessment Report</h1>
+  <p class="muted">{{ assessment.user.full_name }} | {{ assessment.role.name }} | {{ assessment.created_at|date:"M j, Y" }}</p>
+  <p class="score">{{ assessment.readiness_percentage|floatformat:0 }}%</p>
+
+  <h2>Gap Breakdown</h2>
+  <table>
+    <thead><tr><th>Skill</th><th>Your Rating</th><th>Required</th><th>Gap</th></tr></thead>
+    <tbody>
+      {% for rating in ratings %}
+        <tr>
+          <td>{{ rating.skill.name }}</td>
+          <td>{{ rating.rating }}</td>
+          <td>{{ rating.required_level }}</td>
+          <td>{{ rating.gap_score }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h2>Top Five Recommended Learning Resources</h2>
+  {% if top_resources %}
+    <table>
+      <thead><tr><th>Skill</th><th>Resource</th><th>Difficulty</th><th>URL</th></tr></thead>
+      <tbody>
+        {% for item in top_resources %}
+          <tr>
+            <td>{{ item.gap.skill_name }}</td>
+            <td>{{ item.resource.title }}</td>
+            <td>{{ item.resource.difficulty }}</td>
+            <td>{{ item.resource.url }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No resources are required because all skill requirements were met.</p>
+  {% endif %}
+</body>
+</html>

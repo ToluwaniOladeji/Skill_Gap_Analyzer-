@@ -1,0 +1,4 @@
+Django>=4.2,<5.0
+mysqlclient>=2.2,<3.0
+WeasyPrint>=61,<63
+whitenoise

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}{{ role.name }} Assessment | Skill Gap Analyzer{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+  <div>
+    <h1 class="h3 mb-1">{{ role.name }} assessment</h1>
+    <p class="text-muted mb-0">Rate every skill from 1 (no knowledge) to 5 (expert).</p>
+  </div>
+  <div class="progress-box" aria-live="polite">
+    <span id="ratedCount">0</span> of {{ requirements|length }} rated
+  </div>
+</div>
+
+<form method="post" action="{% url 'submit_assessment' %}" id="assessmentForm" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="role_id" value="{{ role.id }}">
+  <div class="skill-list">
+    {% for requirement in requirements %}
+      <div class="card skill-card shadow-sm">
+        <div class="card-body">
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-8">
+              <label class="form-label fw-semibold" for="rating_{{ requirement.skill.id }}">{{ requirement.skill.name }}</label>
+              <div class="form-text">{{ requirement.skill.description }}</div>
+              <div class="small text-muted mt-1">Required level: {{ requirement.required_level }}/5</div>
+            </div>
+            <div class="col-lg-4">
+              <select class="form-select rating-select" id="rating_{{ requirement.skill.id }}" name="rating_{{ requirement.skill.id }}" required aria-describedby="help_{{ requirement.skill.id }}">
+                <option value="">Select rating</option>
+                <option value="1">1 - No knowledge</option>
+                <option value="2">2 - Beginner</option>
+                <option value="3">3 - Working knowledge</option>
+                <option value="4">4 - Job ready</option>
+                <option value="5">5 - Expert</option>
+              </select>
+              <div id="help_{{ requirement.skill.id }}" class="form-text">Choose the level that honestly reflects your current ability.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="submit-bar">
+    <button class="btn btn-primary btn-lg" type="submit">Submit Assessment</button>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}
+<script>
+  const selects = Array.from(document.querySelectorAll(".rating-select"));
+  const counter = document.getElementById("ratedCount");
+  function updateCounter() {
+    counter.textContent = selects.filter((item) => item.value).length;
+  }
+  selects.forEach((item) => item.addEventListener("change", updateCounter));
+  updateCounter();
+</script>
+{% endblock %}

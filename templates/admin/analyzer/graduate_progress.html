@@ -1,0 +1,74 @@
+{% extends "admin/base_site.html" %}
+{% block extrahead %}
+  {{ block.super }}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    .gp-wrap h1 {
+      font-family: "Fraunces", Georgia, serif;
+      color: #16233a;
+      margin-bottom: 1rem;
+    }
+    .gp-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      border: 1px solid #dbe2e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gp-table th {
+      text-align: left;
+      background: #16233a;
+      color: #ffffff;
+      padding: 0.65rem 1rem;
+      font-weight: 500;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .gp-table td {
+      padding: 0.65rem 1rem;
+      border-top: 1px solid #dbe2e0;
+      vertical-align: top;
+    }
+    .gp-table tbody tr:nth-child(even) {
+      background: #eef1ef;
+    }
+    .gp-score {
+      display: inline-block;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 600;
+      color: #2f6f5e;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="gp-wrap">
+  <h1>Graduate progress</h1>
+  <table class="gp-table">
+    <thead>
+      <tr><th>Graduate</th><th>Email</th><th>Latest readiness scores</th></tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.full_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            {% regroup user.assessments.all by role as role_groups %}
+            {% for group in role_groups %}
+              {{ group.grouper.name }}:
+              {% for assessment in group.list|dictsortreversed:"created_at" %}
+                {% if forloop.first %}<span class="gp-score">{{ assessment.readiness_percentage|floatformat:0 }}%</span>{% endif %}
+              {% endfor %}
+              {% if not forloop.last %}, {% endif %}
+            {% empty %}
+              No assessments
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

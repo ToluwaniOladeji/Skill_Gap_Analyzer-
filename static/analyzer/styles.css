@@ -1,0 +1,355 @@
+/* ============================================================
+   Skill Gap Analyzer — visual system
+   Concept: readiness as ascent. Deep ink ground, moss-green
+   progress accent, amber for gaps. Contour-line texture marks
+   the one place we spend the design's boldness: the score band.
+   ============================================================ */
+
+:root {
+  --ink: #16233a;
+  --slate: #3b4a63;
+  --slate-soft: #6b7a95;
+  --paper: #eef1ef;
+  --surface: #ffffff;
+  --line: #dbe2e0;
+
+  --moss: #2f6f5e;
+  --moss-dark: #204d40;
+  --moss-soft: #e3efe9;
+
+  --amber: #c98a2c;
+  --amber-soft: #faf0dc;
+
+  --danger: #b3452f;
+  --danger-soft: #fbeae6;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+
+  --shadow-card: 0 1px 2px rgba(22, 35, 58, 0.06), 0 10px 24px -14px rgba(22, 35, 58, 0.25);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: var(--moss);
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* ---------- Navigation ---------- */
+
+.app-nav {
+  background: var(--ink) !important;
+  border-bottom: 3px solid var(--moss);
+}
+
+.app-nav .navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #ffffff !important;
+}
+
+.app-nav .nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-weight: 500;
+}
+
+.app-nav .nav-link:hover,
+.app-nav .nav-link.active {
+  color: #ffffff !important;
+}
+
+.app-nav .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.app-nav .btn-outline-light:hover {
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+/* ---------- Buttons & form controls ---------- */
+
+.btn {
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--moss-dark);
+  border-color: var(--moss-dark);
+}
+
+.btn-link {
+  color: var(--moss);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: var(--moss-dark);
+  text-decoration: underline;
+}
+
+/* ---------- Breadcrumbs & alerts ---------- */
+
+.breadcrumb-item a {
+  color: var(--moss);
+  text-decoration: none;
+}
+
+.breadcrumb-item.active {
+  color: var(--slate-soft);
+}
+
+.alert-success {
+  background: var(--moss-soft);
+  border-color: var(--moss);
+  color: var(--moss-dark);
+}
+
+.alert-danger {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.alert-info {
+  background: var(--amber-soft);
+  border-color: var(--amber);
+  color: #7a5518;
+}
+
+.text-primary {
+  color: var(--moss) !important;
+}
+
+/* ---------- Auth shell ---------- */
+
+.auth-shell {
+  min-height: calc(100vh - 140px);
+  display: grid;
+  place-items: center;
+}
+
+.auth-card {
+  width: min(100%, 440px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--moss);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+.auth-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 0.5rem;
+}
+
+.auth-card input,
+.page-card input {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.auth-card input:focus,
+.page-card input:focus {
+  border-color: var(--moss);
+  box-shadow: 0 0 0 3px var(--moss-soft);
+  outline: none;
+}
+
+.page-card {
+  max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---------- Step indicator (password reset flow) ---------- */
+
+.step-track {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.step-dot {
+  width: 1.75rem;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--line);
+}
+
+.step-dot.is-done {
+  background: var(--moss);
+}
+
+.step-dot.is-current {
+  background: var(--amber);
+}
+
+.step-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--slate-soft);
+  margin-bottom: 1rem;
+}
+
+/* ---------- Score & metric display ---------- */
+
+.display-score,
+.hero-score,
+.progress-box {
+  font-family: var(--font-mono);
+}
+
+.display-score {
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--moss);
+}
+
+.hero-score {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.score-band {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.75rem;
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(135deg, rgba(47, 111, 94, 0.35), rgba(22, 35, 58, 0) 65%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cpath d='M-10 100 Q35 55 70 100 T150 100' stroke='%232f6f5e' stroke-width='1' fill='none' opacity='0.45'/%3E%3Cpath d='M-10 130 Q35 85 70 130 T150 130' stroke='%232f6f5e' stroke-width='1' fill='none' opacity='0.3'/%3E%3Cpath d='M-10 70 Q35 25 70 70 T150 70' stroke='%232f6f5e' stroke-width='1' fill='none' opacity='0.3'/%3E%3Cpath d='M-10 40 Q35 -5 70 40 T150 40' stroke='%232f6f5e' stroke-width='1' fill='none' opacity='0.2'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.score-note,
+.role-ready {
+  max-width: 420px;
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- Content cards ---------- */
+
+.empty-state {
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px dashed var(--slate-soft);
+  border-radius: var(--radius-md);
+  color: var(--slate);
+}
+
+.skill-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.skill-card,
+.history-card,
+.resource-box {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.progress-box {
+  align-self: start;
+  padding: 0.75rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.submit-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding: 1rem 0;
+  background: linear-gradient(rgba(238, 241, 239, 0), var(--paper) 30%);
+}
+
+.resource-box {
+  height: 100%;
+  padding: 1rem;
+  background: var(--moss-soft);
+  border: 1px solid var(--line);
+}
+
+.role-filter {
+  min-width: min(100%, 280px);
+}
+
+@media (max-width: 767px) {
+  .score-band {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .submit-bar {
+    justify-content: stretch;
+  }
+
+  .submit-bar .btn {
+    width: 100%;
+  }
+}

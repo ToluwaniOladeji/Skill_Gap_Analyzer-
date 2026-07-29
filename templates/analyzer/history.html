@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Assessment History | Skill Gap Analyzer{% endblock %}
+{% block content %}
+<h1 class="h3 mb-4">Assessment history</h1>
+{% if assessments %}
+  <div class="row g-3">
+    {% for assessment in assessments %}
+      <div class="col-md-6 col-lg-4">
+        <a class="card history-card shadow-sm text-decoration-none" href="{% url 'results' assessment.id %}">
+          <div class="card-body">
+            <h2 class="h5 text-body">{{ assessment.role.name }}</h2>
+            <p class="text-muted small mb-2">{{ assessment.created_at|date:"M j, Y, H:i" }}</p>
+            <p class="mb-0 text-primary fw-semibold">{{ assessment.readiness_percentage|floatformat:0 }}% readiness</p>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state">No completed assessments yet.</div>
+{% endif %}
+{% endblock %}
