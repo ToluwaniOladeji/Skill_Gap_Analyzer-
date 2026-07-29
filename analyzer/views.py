@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Max
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import EmailAuthenticationForm, ProfileForm, RegistrationForm
@@ -12,6 +12,9 @@ from .models import Assessment, AssessmentSkillRating, JobRole, RoleSkillRequire
 from .pdf import assessment_report_response
 from .services import compute_gap, generate_learning_path
 
+
+def healthz(request):
+    return HttpResponse("ok")
 
 def landing(request):
     if request.user.is_authenticated:

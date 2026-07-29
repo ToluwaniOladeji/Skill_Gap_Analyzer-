@@ -9,6 +9,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.landing, name="landing"),
     path("register/", views.register, name="register"),
+    path("healthz/", views.healthz, name="healthz"),
     path(
         "login/",
         auth_views.LoginView.as_view(
