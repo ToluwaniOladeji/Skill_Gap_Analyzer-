@@ -122,7 +122,7 @@ def submit_assessment(request):
         return redirect("select_role")
     role = get_object_or_404(JobRole, pk=request.POST.get("role_id"))
     ratings = {
-        key.removeprefix("rating_"): value
+        key[len("rating_"):]: value
         for key, value in request.POST.items()
         if key.startswith("rating_")
     }
