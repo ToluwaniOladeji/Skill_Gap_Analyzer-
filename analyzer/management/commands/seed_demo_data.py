@@ -114,16 +114,6 @@ DESCRIPTIONS = {
 }
 
 
-# Real course links per skill and difficulty, pulled from reputable platforms
-# (MDN, freeCodeCamp, Coursera, Microsoft Learn, official docs, etc).
-# Skills not listed here fall back to the placeholder example.com URL below.
-#
-# NOTE: A few soft-skill entries (Business Communication, Critical Thinking,
-# Data Ethics, Experiment Design, Presentation Skills) have fewer dedicated
-# standalone courses online than the technical skills do. Those links are a
-# best-effort match — worth a quick manual check before you rely on them,
-# since course catalogs on these platforms shift more often than reference
-# docs do.
 LEARNING_RESOURCES = {
     "HTML": {
         "Beginner": "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
@@ -152,8 +142,8 @@ LEARNING_RESOURCES = {
     },
     "SQL": {
         "Beginner": "https://www.w3schools.com/sql/",
-        "Intermediate": "https://mode.com/sql-tutorial/",
-        "Advanced": "https://mode.com/sql-tutorial/advanced-sql/",
+        "Intermediate": "https://www.thoughtspot.com/sql-tutorial",
+        "Advanced": "https://www.kaggle.com/learn/advanced-sql",
     },
     "Git": {
         "Beginner": "https://git-scm.com/book/en/v2/Getting-Started-Git-Basics",
@@ -211,7 +201,7 @@ LEARNING_RESOURCES = {
         "Advanced": "https://seeing-theory.brown.edu/",
     },
     "Data Cleaning": {
-        "Beginner": "https://www.coursera.org/learn/data-processing",
+        "Beginner": "https://www.coursera.org/learn/process-data",
         "Intermediate": "https://realpython.com/python-data-cleaning-numpy-pandas/",
         "Advanced": "https://www.kaggle.com/learn/data-cleaning",
     },
@@ -231,14 +221,14 @@ LEARNING_RESOURCES = {
         "Advanced": "https://realpython.com/pandas-python-explore-dataset/",
     },
     "Business Communication": {
-        "Beginner": "https://www.coursera.org/learn/business-communication",
-        "Intermediate": "https://www.coursera.org/learn/business-communication",
+        "Beginner": "https://www.coursera.org/learn/business-writing",
+        "Intermediate": "https://www.coursera.org/learn/writing-for-business",
         "Advanced": "https://www.coursera.org/specializations/improve-english",
     },
     "Dashboard Design": {
         "Beginner": "https://www.tableau.com/learn/training",
         "Intermediate": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboard-create",
-        "Advanced": "https://www.tableau.com/learn/training/20232",
+        "Advanced": "https://www.tableau.com/learn/training",
     },
     "Critical Thinking": {
         "Beginner": "https://www.coursera.org/learn/philosophy",
@@ -247,23 +237,23 @@ LEARNING_RESOURCES = {
     },
     "Database Concepts": {
         "Beginner": "https://www.khanacademy.org/computing/computer-programming/sql",
-        "Intermediate": "https://www.coursera.org/learn/database-design",
+        "Intermediate": "https://www.coursera.org/learn/relational-database-design",
         "Advanced": "https://www.coursera.org/learn/database-management",
     },
     "Experiment Design": {
         "Beginner": "https://www.khanacademy.org/math/statistics-probability/designing-studies",
         "Intermediate": "https://www.coursera.org/learn/experimentation",
-        "Advanced": "https://www.coursera.org/learn/abtesting",
+        "Advanced": "https://www.coursera.org/learn/launch-effective-ab-tests",
     },
     "Presentation Skills": {
         "Beginner": "https://www.coursera.org/learn/presentation-skills",
         "Intermediate": "https://www.coursera.org/specializations/public-speaking",
-        "Advanced": "https://www.coursera.org/learn/public-speaking-capstone",
+        "Advanced": "https://www.coursera.org/learn/effective-communication-capstone",
     },
     "Data Ethics": {
-        "Beginner": "https://www.edx.org/learn/data-analysis/university-of-michigan-data-science-ethics",
-        "Intermediate": "https://www.edx.org/learn/data-analysis/university-of-michigan-data-science-ethics",
-        "Advanced": "https://www.edx.org/learn/data-analysis/university-of-michigan-data-science-ethics",
+        "Beginner": "https://www.coursera.org/learn/data-science-ethics",
+        "Intermediate": "https://www.coursera.org/learn/data-science-ethics",
+        "Advanced": "https://www.coursera.org/learn/data-science-ethics",
     },
     "Networking Fundamentals": {
         "Beginner": "https://www.coursera.org/learn/computer-networking",
@@ -336,7 +326,7 @@ LEARNING_RESOURCES = {
         "Advanced": "https://learn.microsoft.com/en-us/training/modules/configure-remote-management/",
     },
     "IT Asset Management": {
-        "Beginner": "https://www.itassetmanagement.net/itam-basics/",
+        "Beginner": "https://www.manageengine.com/products/service-desk/it-asset-management/what-is-itam.html",
         "Intermediate": "https://learn.microsoft.com/en-us/training/paths/manage-devices-in-microsoft-intune/",
         "Advanced": "https://learn.microsoft.com/en-us/training/paths/manage-devices-in-microsoft-intune/",
     },
